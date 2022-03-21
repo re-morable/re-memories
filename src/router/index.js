@@ -1,23 +1,22 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import { createRouter, createWebHistory } from "vue-router"
+import HomeView from "../views/HomeView.vue"
+const posts = await import.meta.glob("./../../posts/*.md", {
+  assert: { type: "raw" },
+})
+
+// when url is /discord, redirect to https://discord.gg/
+if (document.location.pathname === "/discord")
+  document.location.replace("https://discord.com/invite/FsvMsA7DFj")
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
-      name: 'home',
-      component: HomeView
+      path: "/",
+      name: "home",
+      component: HomeView,
     },
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
-    }
-  ]
+  ],
 })
 
 export default router

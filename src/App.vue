@@ -1,119 +1,100 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from '@/components/HelloWorld.vue'
+import { RouterLink, RouterView } from "vue-router"
+import "./index.scss"
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
+  <nav
+    class="nav"
+    :style="{ backgroundColor: bg_color, '--tw-shadow': nav_shadow }"
+  >
+    <div class="navbar">
+      <div class="navbar-logo">
+        <img
+          src="/src/assets/logo-light.png"
+          alt="logo"
+          class="navbar-logo__light"
+        />
+        <img
+          src="/src/assets/logo-dark.png"
+          alt="logo"
+          :style="{ opacity: logo_opacity }"
+          class="navbar-logo__dark"
+        />
+      </div>
     </div>
-  </header>
-
-  <RouterView />
+  </nav>
+  <main :style="{ paddingTop: this.$route.path === '/' ? 0 : '3.5rem' }">
+    <RouterView />
+  </main>
+  <footer>
+    <!-- get year today -->
+    2021-{{ new Date().getFullYear() }} &copy; Re:Memories
+  </footer>
 </template>
 
-<style>
-@import '@/assets/base.css';
+<script>
+export default {
+  data() {
+    return {
+      bg_color: `rgba(255, 255, 255, 1)`,
+      nav_shadow: `0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)`,
+      logo_opacity: 1,
+    }
+  },
+  created() {
+    this.$watch(
+      () => this.$route.path,
+      () => {
+        if (this.$route.path === "/") {
+          this.bg_color = `rgba(255, 255, 255, 0)`
+          this.nav_shadow = `0 4px 6px -1px rgb(0 0 0 / 0), 0 2px 4px -2px rgb(0 0 0 / 0)`
+          this.logo_opacity = 0
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+          window.addEventListener("scroll", () => {
+            // const opacity = 0 + window.scrollY / 500
+            // scroll to limit 75vh from top and max 1
+            const opacity =
+              0 +
+              Math.min(
+                1,
+                Math.max(0, window.scrollY / (window.innerHeight - 75))
+              )
 
-  font-weight: normal;
+            console.log(window.scrollY)
+            this.bg_color = `rgba(255, 255, 255, ${opacity})`
+            this.logo_opacity = opacity
+            this.nav_shadow = `0 4px 6px -1px rgb(0 0 0 / ${
+              opacity / 10
+            }), 0 2px 4px -2px rgb(0 0 0 / ${opacity / 10})`
+          })
+        } else {
+          this.bg_color = `rgba(255, 255, 255, 1)`
+          this.nav_shadow = `0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)`
+          this.logo_opacity = 1
+        }
+      },
+      { immediate: true }
+    )
+  },
+}
+</script>
+
+<style lang="scss">
+.nav {
+  @apply h-14 w-screen fixed shadow-md;
 }
 
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
+.navbar {
+  @apply container w-[95vw] mx-auto h-full flex items-center justify-between;
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
+  &-logo {
+    @apply relative h-full w-[11.25rem];
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-}
-
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
-
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
+    &__light,
+    &__dark {
+      @apply absolute top-1/2 -translate-y-1/2;
+    }
   }
 }
 </style>
