@@ -46,10 +46,7 @@ import "./index.scss"
       </div>
     </div>
   </nav>
-  <main
-    :style="{ paddingTop: this.$route.path === '/' ? 0 : '3.5rem' }"
-    class="min-h-[200vh]"
-  >
+  <main :style="{ paddingTop: this.$route.path === '/' ? 0 : '3.5rem' }">
     <RouterView />
   </main>
   <footer class="footer">

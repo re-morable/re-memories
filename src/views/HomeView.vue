@@ -7,11 +7,45 @@ import HomeMembers from "../components/HomeMembers.vue"
     class="header-img"
     :style="{ backgroundPosition: `50% ${header_scroll}` }"
   ></header>
-  <section class="">
+  <section class="my-2">
     <div class="container w-[95vw] mx-auto pt-5">
       <h1 class="text-slate-800 pl-5">Members</h1>
       <HomeMembers />
     </div>
+  </section>
+  <section class="my-2 bg-parallax flex flex-col items-center text-white">
+    <h1 class="pb-8 pt-16 center">About</h1>
+    <p
+      class="w-[95vw] sm:w-[85vw] lg:w-[75vw] xl:w-[70vw] text-center font-semibold mb-2 text-lg"
+    >
+      Re:Memories adalah agensi independen yang melahirkan Virtual Youtuber
+      sebagai teman atau bahkan keluarga. Kami berfokus memberikan sensasi
+      hiburan baru yang tidak hanya menonton secara satu arah, tetapi juga
+      memperhatikan komunikasi dua arah dengan konsep virtual.
+    </p>
+
+    <p
+      class="w-[95vw] sm:w-[85vw] lg:w-[75vw] xl:w-[70vw] text-center mx-0 font-semibold mb-16 text-lg"
+    >
+      Tujuan kami adalah membuat memori yang nyata dengan menggunakan media
+      virtual untuk berinteraksi dengan dunia.
+    </p>
+  </section>
+  <section class="my-2 flex flex-col items-center text-slate-800">
+    <h1 class="pb-8 pt-16 center">Hi</h1>
+    <p
+      class="w-[95vw] sm:w-[85vw] lg:w-[75vw] xl:w-[70vw] text-center font-semibold mb-16 text-lg"
+    >
+      Yang sedang anda lihat adalah halaman utama yang belum jadi. Jika ada
+      kebutuhan, hubungi
+      <a
+        href="http://twitter.com/yarndinasti"
+        target="_blank"
+        class="text-slate-700 hover:text-slate-900 underline"
+        rel="noopener noreferrer"
+        >@yarndinasti</a
+      >
+    </p>
   </section>
 </template>
 
@@ -46,6 +80,13 @@ export default {
           this.header_scroll = "0%"
         }
       }
+
+      // get .bg-parallax position
+      const bgParallax = document.querySelector(".bg-parallax")
+      const paralaxScroll =
+        window.scrollY - bgParallax.getBoundingClientRect().top
+
+      bgParallax.style.backgroundPosition = `50% ${0 - paralaxScroll / 15}px`
     })
   },
 }
@@ -71,11 +112,13 @@ h1 {
   }
 
   &.center {
-    @apply absolute left-1/2 -translate-x-1/2;
-
     &:after {
       @apply mx-auto;
     }
   }
+}
+
+.bg-parallax {
+  @apply bg-[url("/src/assets/background.jpg")] bg-cover bg-no-repeat bg-top bg-fixed;
 }
 </style>

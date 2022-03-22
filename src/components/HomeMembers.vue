@@ -127,7 +127,7 @@ export default {
 
 <style lang="scss" scoped>
 .member {
-  @apply px-12 py-4;
+  @apply px-12 py-4 my-8;
 
   &-list {
     @apply mx-3 w-[250px] block;
