@@ -1,6 +1,6 @@
 # re-memories
 
-This template should help get you started developing with Vue 3 in Vite.
+Ini adalah website cloningan dari [website aslinya](https://rememories.id/) yang lebih bagus dari aslinya dengan tujuan isengan menambah pengalaman.
 
 ## Recommended IDE Setup
 

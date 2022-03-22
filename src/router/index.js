@@ -10,6 +10,10 @@ if (document.location.pathname === "/discord")
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
+  scrollBehavior(to, from, savedPosition) {
+    // always scroll to top when route changed
+    return { top: 0 }
+  },
   routes: [
     {
       path: "/",
