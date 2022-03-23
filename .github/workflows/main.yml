@@ -21,6 +21,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: install libraries
         run: npm install
+      - name: Build Website
+        run: npm run build
       - name: install firebase
         run: npm i firebase-tools -g
       - name: deploy
