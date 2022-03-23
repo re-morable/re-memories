@@ -1,6 +1,6 @@
 # re-memories
 
-Ini adalah website cloningan dari [website aslinya](https://rememories.id/) yang lebih bagus dari aslinya dengan tujuan isengan menambah pengalaman
+Ini adalah website cloningan dari [website aslinya](https://rememories.id/) yang lebih bagus dari aslinya dengan tujuan isengan menambah pengalaman.
 
 ## Recommended IDE Setup
 
