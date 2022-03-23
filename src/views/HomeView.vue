@@ -13,50 +13,100 @@ import HomeMembers from "../components/HomeMembers.vue"
       <HomeMembers />
     </div>
   </section>
-  <section class="my-2 bg-parallax flex flex-col items-center text-white">
-    <h1 class="pb-8 pt-16 center">About</h1>
-    <p
-      class="w-[95vw] sm:w-[85vw] lg:w-[75vw] xl:w-[70vw] text-center font-semibold mb-2 text-lg"
-    >
+  <section class="my-2 bg-parallax py-16">
+    <h1 class="pb-8 center">About</h1>
+    <p>
       Re:Memories adalah agensi independen yang melahirkan Virtual Youtuber
       sebagai teman atau bahkan keluarga. Kami berfokus memberikan sensasi
       hiburan baru yang tidak hanya menonton secara satu arah, tetapi juga
       memperhatikan komunikasi dua arah dengan konsep virtual.
     </p>
 
-    <p
-      class="w-[95vw] sm:w-[85vw] lg:w-[75vw] xl:w-[70vw] text-center mx-0 font-semibold mb-16 text-lg"
-    >
+    <p>
       Tujuan kami adalah membuat memori yang nyata dengan menggunakan media
       virtual untuk berinteraksi dengan dunia.
     </p>
   </section>
-  <section class="my-2 flex flex-col items-center text-slate-800">
-    <h1 class="pb-8 pt-16 center">Hi</h1>
-    <p
-      class="w-[95vw] sm:w-[85vw] lg:w-[75vw] xl:w-[70vw] text-center font-semibold mb-16 text-lg"
-    >
-      Yang sedang anda lihat adalah halaman utama yang belum jadi. Jika ada
-      kebutuhan, hubungi
+  <section class="my-2 container w-[95vw] mx-auto text-slate-800 py-5">
+    <h1 class="pb-8 text-slate-800 pl-5">Partner</h1>
+    <p></p>
+  </section>
+  <section class="my-2 bg-parallax py-6">
+    <div class="container mx-auto">
+      <h1 class="pl-5 pb-8">News</h1>
+    </div>
+  </section>
+  <section class="my-2 container w-[95vw] mx-auto text-slate-800 py-6">
+    <h1 class="text-slate-800 center pb-8">Contact</h1>
+    <p>
+      Jika ada pertanyaan, kolaborasi, atau projek terkait dengan Re:Memories,
+      silahkan hubungi kami melalui form di samping atau dapat langsung
+      mengirimkan email ke
       <a
-        href="http://twitter.com/yarndinasti"
-        target="_blank"
-        class="text-slate-700 hover:text-slate-900 underline"
-        rel="noopener noreferrer"
-        >@yarndinasti</a
+        href="mailto:contact@rememories.id"
+        class="text-sky-500 hover:text-sky-700"
+        >contact@rememories.id</a
       >
     </p>
+    <form method="post" class="contact-form">
+      <div class="contact-form-group">
+        <input
+          type="text"
+          name="name"
+          id="name"
+          class="contact-form-input"
+          placeholder=" "
+        />
+        <label for="name" class="contact-form-label required">Name</label>
+      </div>
+      <div class="contact-form-group">
+        <input
+          type="text"
+          name="company"
+          id="company"
+          class="contact-form-input"
+          placeholder=" "
+        />
+        <label for="company" class="contact-form-label"
+          >Company / Organization</label
+        >
+      </div>
+      <div class="contact-form-group">
+        <input
+          type="text"
+          name="email"
+          id="email"
+          class="contact-form-input"
+          placeholder=" "
+        />
+        <label for="email" class="contact-form-label required">Email</label>
+      </div>
+      <div class="contact-form-group__area">
+        <textarea
+          name="message"
+          id="message"
+          class="contact-form-input"
+          placeholder=" "
+        ></textarea>
+        <label for="message" class="contact-form-label required">Message</label>
+      </div>
+      <div class="contact-form-group">
+        <button type="submit" class="contact-form-button">Send</button>
+      </div>
+    </form>
   </section>
 </template>
 
 <script>
+import validator from "validator"
+
 export default {
   data() {
     return {
       header_scroll: "0",
     }
   },
-  created() {
+  mounted() {
     window.addEventListener("scroll", () => {
       // when media query min-width: 1024px
       if (window.innerWidth > 1024) {
@@ -86,7 +136,43 @@ export default {
       const paralaxScroll =
         window.scrollY - bgParallax.getBoundingClientRect().top
 
-      bgParallax.style.backgroundPosition = `50% ${0 - paralaxScroll / 15}px`
+      bgParallax.style.backgroundPosition = `50% ${0 - paralaxScroll / 12}px`
+    })
+
+    const contactInputs = document.querySelectorAll(".contact-form-input")
+    const contactButton = document.querySelector(".contact-form-button")
+
+    contactButton.disabled = true
+
+    contactInputs.forEach((input) => {
+      input.addEventListener("blur", (e) => {
+        if (e.target.name !== "company" && e.target.value === "")
+          e.target.classList.add("is-invalid")
+      })
+
+      // when input add text
+      input.addEventListener("input", (e) => {
+        const requiredTarget =
+          e.target.name !== "company" && e.target.value === ""
+        const nameTarget = e.target.name === "name" && e.target.value.length < 3
+        const emailTarget =
+          e.target.name === "email" && !validator.isEmail(e.target.value)
+        const messageTarget =
+          e.target.name === "message" && e.target.value.length < 10
+
+        requiredTarget || nameTarget || emailTarget || messageTarget
+          ? e.target.classList.add("is-invalid")
+          : e.target.classList.remove("is-invalid")
+
+        contactButton.disabled = !![...contactInputs].find((i) => {
+          const required = i.name !== "company" && i.value === ""
+          const name = i.name === "name" && i.value.length < 3
+          const email = i.name === "email" && !validator.isEmail(i.value)
+          const message = i.name === "message" && i.value.length < 10
+
+          return required || name || email || message
+        })
+      })
     })
   },
 }
@@ -108,17 +194,83 @@ h1 {
   @apply text-[3.5vmax] font-semibold inline-block uppercase;
 
   &:after {
-    @apply content-[''] block h-[0.45vmax] rounded-full bg-current w-10/12;
+    @apply content-[''] h-[0.45vmax] block rounded-full bg-current w-10/12;
   }
 
   &.center {
+    @apply relative left-1/2 -translate-x-1/2;
     &:after {
       @apply mx-auto;
     }
   }
 }
 
+p {
+  @apply w-[95vw] sm:w-[85vw] lg:w-[75vw] xl:w-[70vw] text-center font-semibold mb-[1.5vmax] text-[1.4vmax] mx-auto;
+}
+
 .bg-parallax {
-  @apply bg-[url("/src/assets/background.jpg")] bg-cover bg-no-repeat bg-top bg-fixed;
+  @apply bg-[url("/src/assets/background.jpg")] bg-cover bg-no-repeat bg-top bg-fixed text-white;
+}
+
+// make form like android
+.contact-form {
+  @apply flex flex-col items-center justify-center container mx-auto rounded-lg shadow-md px-4 py-2;
+
+  &-group {
+    @apply relative w-full h-12 my-2;
+
+    &__area {
+      @apply relative w-full h-48 my-2;
+    }
+  }
+
+  &-label {
+    @apply absolute left-4 top-2 p-1 bg-white text-gray-500 transition-all duration-300;
+
+    &.required {
+      @apply after:content-['*'] after:text-red-500 after:pl-0.5;
+    }
+  }
+
+  &-input {
+    @apply absolute top-0 left-0 w-full h-full border-[1px] resize-none rounded-md outline-none p-4 bg-transparent z-[1];
+
+    &:focus {
+      &:not(.is-invalid) {
+        @apply border-[1.5px] border-blue-500;
+      }
+
+      &.is-invalid + .contact-form-label {
+        @apply text-red-600;
+      }
+
+      & + .contact-form-label {
+        @apply -top-[.825rem] left-[.8rem] text-blue-500 text-xs z-[4] font-semibold;
+      }
+    }
+
+    &.is-invalid {
+      @apply border-[1.5px] border-red-500;
+
+      & + .contact-form-label {
+        @apply text-red-300;
+      }
+    }
+  }
+
+  .contact-form-input:not(:placeholder-shown).contact-form-input:not(:focus) {
+    &.is-invalid + .contact-form-label {
+      @apply text-red-600;
+    }
+    & + .contact-form-label {
+      @apply -top-[.825rem] left-[.8rem] text-gray-500 text-xs z-[4] font-semibold;
+    }
+  }
+
+  &-button {
+    @apply bg-sky-500 text-white px-6 py-2 text-lg shadow-md -translate-y-0.5 rounded-md hover:shadow-none hover:translate-y-0 transition duration-200 font-semibold disabled:opacity-50
+    disabled:hover:shadow-md disabled:hover:-translate-y-0.5;
+  }
 }
 </style>

@@ -12,7 +12,7 @@
       onclick="return false"
       class="member-arrow-left"
       :class="{ disabled: !leftSlideBtn }"
-      v-if="leftSlideBtn || rightSlideBtn"
+      v-if="!(!leftSlideBtn && !rightSlideBtn)"
       @click="swiper.slideTo(swiper.activeIndex - slideContent)"
     >
       <font-awesome-icon icon="caret-left" class="member-arrow__icon" />
@@ -21,7 +21,7 @@
       href="#"
       onclick="return false"
       class="member-arrow-right"
-      v-if="leftSlideBtn || rightSlideBtn"
+      v-if="!(!leftSlideBtn && !rightSlideBtn)"
       :class="{ disabled: !rightSlideBtn }"
       @click="swiper.slideTo(swiper.activeIndex + slideContent)"
     >
