@@ -1,41 +1,32 @@
-name: Push to Firebase
+name: Deploy to Google
 
+# Run this workflow every time a new commit pushed to your repository
 on:
   push:
-    branches: [main]
+    branches: [ master ]
 
-workflow_dispatch:
-  jobs:
-    build:
-      name: Build
-      runs-on: ubuntu-latest
-      steps:
-        - name: Checkout Repo
-          uses: actions/checkout@main
-        - name: Install Dependencies
-          uses: npm ci
-        - name: Build Website
-          run: npm run build
-        - name: Archive Website Production
-          run: actions/upload-artifact@main
-          with:
-            name: dist
-            path: dist
-    deploy:
-      name: Deploy to Firebase
-      needs: build
-      runs-on: ubuntu-latest
-      steps:
-        - name: Checkout Repo
-          uses: actions/checkout@main
-        - name: Download Website
-          uses: actions/download-artifact@main
-          with:
-            name: dist
-            path: dist
-        - name: Deploy Website
-          run: w9jds/firebase-deploy@master
-          with:
-            args: deploy --only hosting
-          env:
-            FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    env:
+      working-directory: ./functions
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: install libraries
+      run: npm install
+      working-directory: ${{env.working-directory}}
+    - name: install firebase
+      run: npm i firebase-tools -g  
+    - name: deploy
+      run: firebase deploy --token ${{ secrets.FIREBASE_TOKEN }}
