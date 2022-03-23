@@ -32,7 +32,7 @@ import HomeMembers from "../components/HomeMembers.vue"
     <p></p>
   </section>
   <section class="my-2 bg-parallax py-6">
-    <div class="container mx-auto">
+    <div class="container w-[95vw] mx-auto">
       <h1 class="pl-5 pb-8">News</h1>
     </div>
   </section>
@@ -107,6 +107,7 @@ export default {
     }
   },
   mounted() {
+    document.title = "Re:Memories - Indepedent Virtual YouTuber Agency"
     window.addEventListener("scroll", () => {
       // when media query min-width: 1024px
       if (window.innerWidth > 1024) {
@@ -146,7 +147,15 @@ export default {
 
     contactInputs.forEach((input) => {
       input.addEventListener("blur", (e) => {
-        if (e.target.name !== "company" && e.target.value === "")
+        const requiredTarget =
+          e.target.name !== "company" && e.target.value === ""
+        const nameTarget = e.target.name === "name" && e.target.value.length < 3
+        const emailTarget =
+          e.target.name === "email" && !validator.isEmail(e.target.value)
+        const messageTarget =
+          e.target.name === "message" && e.target.value.length < 10
+
+        if (requiredTarget || nameTarget || emailTarget || messageTarget)
           e.target.classList.add("is-invalid")
       })
 
@@ -160,9 +169,8 @@ export default {
         const messageTarget =
           e.target.name === "message" && e.target.value.length < 10
 
-        requiredTarget || nameTarget || emailTarget || messageTarget
-          ? e.target.classList.add("is-invalid")
-          : e.target.classList.remove("is-invalid")
+        if (!(requiredTarget || nameTarget || emailTarget || messageTarget))
+          e.target.classList.remove("is-invalid")
 
         contactButton.disabled = !![...contactInputs].find((i) => {
           const required = i.name !== "company" && i.value === ""
@@ -261,7 +269,7 @@ p {
 
   .contact-form-input:not(:placeholder-shown).contact-form-input:not(:focus) {
     &.is-invalid + .contact-form-label {
-      @apply text-red-600;
+      @apply text-red-400;
     }
     & + .contact-form-label {
       @apply -top-[.825rem] left-[.8rem] text-gray-500 text-xs z-[4] font-semibold;

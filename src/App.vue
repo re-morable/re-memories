@@ -46,15 +46,58 @@ import "./index.scss"
       </div>
     </div>
   </nav>
-  <main
-    :style="{ paddingTop: this.$route.path === '/' ? 0 : '3.5rem' }"
-    class="min-h-[400vh]"
-  >
+  <main :style="{ paddingTop: this.$route.path === '/' ? 0 : '3.5rem' }">
     <RouterView />
   </main>
   <footer class="footer">
-    <!-- get year today -->
-    2021-{{ new Date().getFullYear() }} &copy; Re:Memories
+    <div class="footer-info">
+      <img src="/src/assets/logo-light.png" alt="Re:Memories" class="py-4" />
+      <div class="link-sosmed">
+        <a
+          href="https://www.youtube.com/channel/UCJZnhqz3mNpWJJ1FGrAy_qA"
+          target="_blank"
+          class="hover:bg-[#ff0000] hover:text-white"
+        >
+          <font-awesome-icon :icon="['fab', 'youtube']" class="fa-fw" />
+        </a>
+        <a
+          href="https://twitter.com/Rememories_id"
+          target="_blank"
+          class="hover:bg-[#1d9bf0] hover:text-white"
+        >
+          <font-awesome-icon :icon="['fab', 'twitter']" class="fa-fw" />
+        </a>
+        <a
+          href="https://www.instagram.com/rememories.id/"
+          target="_blank"
+          class="hover:bg-gradient-to-br from-[#3f6ac9] via-[#e54576] to-[#ffc650] hover:text-white"
+        >
+          <font-awesome-icon :icon="['fab', 'instagram']" class="fa-fw" />
+        </a>
+        <a
+          href="https://www.facebook.com/rememories.id/"
+          target="_blank"
+          class="hover:bg-[#1878f4] hover:text-white"
+        >
+          <font-awesome-icon :icon="['fab', 'facebook']" class="fa-fw" />
+        </a>
+        <a
+          href="https://discord.com/invite/FsvMsA7DFj"
+          target="_blank"
+          class="hover:bg-[#5865F2] hover:text-white"
+        >
+          <font-awesome-icon :icon="['fab', 'discord']" class="fa-fw" />
+        </a>
+        <a
+          href="https://play.google.com/store/apps/details?id=com.warteg.evelyn_family_app"
+          target="_blank"
+          class="hover:bg-slate-800 hover:text-white"
+        >
+          <font-awesome-icon :icon="['fab', 'google-play']" class="fa-fw" />
+        </a>
+      </div>
+    </div>
+    <div class="footer-link"></div>
   </footer>
 </template>
 
@@ -62,7 +105,24 @@ import "./index.scss"
 import { library } from "@fortawesome/fontawesome-svg-core"
 import { faBars } from "@fortawesome/free-solid-svg-icons"
 
-library.add(faBars)
+import {
+  faYoutube,
+  faTwitter,
+  faInstagram,
+  faFacebook,
+  faDiscord,
+  faGooglePlay,
+} from "@fortawesome/free-brands-svg-icons"
+
+library.add(
+  faBars,
+  faYoutube,
+  faTwitter,
+  faInstagram,
+  faFacebook,
+  faDiscord,
+  faGooglePlay
+)
 
 export default {
   data() {
@@ -184,6 +244,26 @@ export default {
 }
 
 .footer {
-  @apply text-center text-xs text-gray-500 py-2;
+  @apply py-4 bg-slate-700 flex flex-col md:flex-row;
+
+  &-link {
+    @apply flex-1 flex flex-col items-center justify-center;
+  }
+
+  &-info {
+    @apply flex-1 flex flex-col items-start justify-center px-4;
+  }
+}
+
+.link-sosmed {
+  @apply flex items-center;
+
+  a {
+    @apply text-xl px-2 py-1.5 rounded-full bg-white/30 text-slate-700 transition-colors duration-200 ease-in-out;
+
+    &:not(:last-child) {
+      @apply mr-2;
+    }
+  }
 }
 </style>
