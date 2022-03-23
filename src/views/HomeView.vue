@@ -98,7 +98,7 @@ import HomeMembers from "../components/HomeMembers.vue"
 </template>
 
 <script>
-import validator from "validator"
+import { isEmail } from "validator"
 
 export default {
   data() {
@@ -151,7 +151,7 @@ export default {
           e.target.name !== "company" && e.target.value === ""
         const nameTarget = e.target.name === "name" && e.target.value.length < 3
         const emailTarget =
-          e.target.name === "email" && !validator.isEmail(e.target.value)
+          e.target.name === "email" && !isEmail(e.target.value)
         const messageTarget =
           e.target.name === "message" && e.target.value.length < 10
 
@@ -165,7 +165,7 @@ export default {
           e.target.name !== "company" && e.target.value === ""
         const nameTarget = e.target.name === "name" && e.target.value.length < 3
         const emailTarget =
-          e.target.name === "email" && !validator.isEmail(e.target.value)
+          e.target.name === "email" && !isEmail(e.target.value)
         const messageTarget =
           e.target.name === "message" && e.target.value.length < 10
 
