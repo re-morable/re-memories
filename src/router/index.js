@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router"
 import HomeView from "../views/HomeView.vue"
 import MembersView from "../views/MembersView.vue"
+import AboutView from "../views/AboutView.vue"
 
 // when url is /discord, redirect to https://discord.gg/
 if (document.location.pathname === "/discord")
@@ -8,10 +9,7 @@ if (document.location.pathname === "/discord")
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  scrollBehavior(to, from, savedPosition) {
-    // always scroll to top when route changed
-    return { top: 0 }
-  },
+
   routes: [
     {
       path: "/",
@@ -23,7 +21,26 @@ const router = createRouter({
       name: "members",
       component: MembersView,
     },
+    {
+      path: "/about",
+      name: "about",
+      component: AboutView,
+    },
   ],
+  scrollBehavior(to, from, savedPosition) {
+    if (to.hash) {
+      return {
+        selector: to.hash,
+        offset: {
+          y: 25,
+        },
+      }
+    } else {
+      return {
+        y: 0,
+      }
+    }
+  },
 })
 
 export default router

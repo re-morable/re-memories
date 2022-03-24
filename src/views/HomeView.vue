@@ -9,7 +9,7 @@ import HomeMembers from "../components/HomeMembers.vue"
   ></header>
   <section class="my-2">
     <div class="container w-[95vw] mx-auto pt-5">
-      <h1 class="text-slate-800 pl-5">Members</h1>
+      <h1 class="main-title text-slate-800 pl-5">Members</h1>
       <HomeMembers />
     </div>
   </section>
@@ -135,12 +135,18 @@ export default {
         }
       }
 
-      const bgParallax = document.querySelector(".bg-parallax")
+      const bgParallax = document.querySelectorAll(".bg-parallax")
 
       if (bgParallax) {
-        const paralaxScroll =
-          window.scrollY - bgParallax.getBoundingClientRect().top
-        bgParallax.style.backgroundPosition = `50% ${0 - paralaxScroll / 12}px`
+        bgParallax.forEach((bg) => {
+          const paralaxTop = window.scrollY - bg.getBoundingClientRect().top
+          const parallaxScroll = Math.min(
+            0,
+            Math.max(-332, 0 - paralaxTop / 15)
+          )
+
+          bg.style.backgroundPosition = `50% ${parallaxScroll}px`
+        })
       }
     })
 
@@ -173,13 +179,14 @@ export default {
         const messageTarget =
           e.target.name === "message" && e.target.value.length < 10
 
-        if (!(requiredTarget || nameTarget || emailTarget || messageTarget))
-          e.target.classList.remove("is-invalid")
+        if (requiredTarget || nameTarget || emailTarget || messageTarget)
+          e.target.classList.add("is-invalid")
+        else e.target.classList.remove("is-invalid")
 
         contactButton.disabled = !![...contactInputs].find((i) => {
           const required = i.name !== "company" && i.value === ""
           const name = i.name === "name" && i.value.length < 3
-          const email = i.name === "email" && !validator.isEmail(i.value)
+          const email = i.name === "email" && !isEmail(i.value)
           const message = i.name === "message" && i.value.length < 10
 
           return required || name || email || message
@@ -202,23 +209,9 @@ export default {
   }
 }
 
-h1 {
-  @apply text-[3.5vmax] font-semibold inline-block uppercase;
-
-  &:after {
-    @apply content-[''] h-[0.45vmax] block rounded-full bg-current w-10/12;
-  }
-
-  &.center {
-    @apply relative left-1/2 -translate-x-1/2;
-    &:after {
-      @apply mx-auto;
-    }
-  }
-}
-
 p {
-  @apply w-[95vw] sm:w-[85vw] lg:w-[75vw] xl:w-[70vw] text-center font-semibold mb-[1.5vmax] text-[1.4vmax] mx-auto;
+  @apply w-[95vw] sm:w-[85vw] lg:w-[75vw] xl:w-[70vw] text-center font-semibold mb-[1.5vmax] mx-auto;
+  font-size: clamp(0.8rem, 1.4vmax, 1.4vmax);
 }
 
 .bg-parallax {

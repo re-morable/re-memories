@@ -174,7 +174,7 @@ export default {
     this.$watch(
       () => this.$route.path,
       async () => {
-        await new Promise((resolve) => setTimeout(resolve, 50))
+        await new Promise((resolve) => setTimeout(resolve, 600))
         this.recolorNavBar()
       },
       { immediate: true }
@@ -191,10 +191,16 @@ export default {
                 1,
                 Math.max(0, window.scrollY / (window.innerHeight - 75))
               )
+            : window.innerWidth > 640
+            ? 0 +
+              Math.min(
+                1,
+                Math.max(0, (window.scrollY / window.innerHeight) * 2.1)
+              )
             : 0 +
               Math.min(
                 1,
-                Math.max(0, (window.scrollY / window.innerHeight) * 2)
+                Math.max(0, (window.scrollY / window.innerHeight) * 3)
               )
 
         this.navbar_opacity =
@@ -213,12 +219,12 @@ export default {
         this.nav_color = "rgb(20, 20, 20)"
       }
     },
-    scrollHash(hash) {
+    scrollHash(hash, offset = 0) {
       if (!this.$route.hash) return
       let element = document.getElementById(hash.replace("#", ""))
 
       if (element) {
-        const headerOffset = 70
+        const headerOffset = offset
         const elementPosition = element.getBoundingClientRect().top
         const offsetPosition =
           elementPosition + window.pageYOffset - headerOffset
@@ -239,7 +245,7 @@ export default {
         })
 
       await new Promise((resolve) => setTimeout(resolve, 50))
-      this.scrollHash("contact")
+      this.scrollHash("contact", 25)
     },
   },
 }
@@ -270,7 +276,7 @@ export default {
     @apply inline-block text-xl mr-2 py-1 px-2 sm:hidden rounded-md;
   }
 
-  &:focus-within {
+  &-menu:focus-within {
     .navbar-items {
       @apply scale-y-100;
     }
@@ -289,6 +295,21 @@ export default {
 
     &.router-link-active {
       @apply bg-gray-300 bg-opacity-50;
+    }
+  }
+}
+
+.main-title {
+  @apply text-[3.5vmax] font-semibold inline-block uppercase;
+
+  &:after {
+    @apply content-[''] h-[0.45vmax] block rounded-full bg-current w-10/12;
+  }
+
+  &.center {
+    @apply relative left-1/2 -translate-x-1/2;
+    &:after {
+      @apply mx-auto;
     }
   }
 }
