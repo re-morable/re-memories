@@ -36,7 +36,10 @@ import HomeMembers from "../components/HomeMembers.vue"
       <h1 class="pl-5 pb-8">News</h1>
     </div>
   </section>
-  <section class="my-2 container w-[95vw] mx-auto text-slate-800 py-6">
+  <section
+    class="my-2 container w-[95vw] mx-auto text-slate-800 py-6"
+    id="contact"
+  >
     <h1 class="text-slate-800 center pb-8">Contact</h1>
     <p>
       Jika ada pertanyaan, kolaborasi, atau projek terkait dengan Re:Memories,
@@ -132,12 +135,13 @@ export default {
         }
       }
 
-      // get .bg-parallax position
       const bgParallax = document.querySelector(".bg-parallax")
-      const paralaxScroll =
-        window.scrollY - bgParallax.getBoundingClientRect().top
 
-      bgParallax.style.backgroundPosition = `50% ${0 - paralaxScroll / 12}px`
+      if (bgParallax) {
+        const paralaxScroll =
+          window.scrollY - bgParallax.getBoundingClientRect().top
+        bgParallax.style.backgroundPosition = `50% ${0 - paralaxScroll / 12}px`
+      }
     })
 
     const contactInputs = document.querySelectorAll(".contact-form-input")

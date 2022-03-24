@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router"
 import HomeView from "../views/HomeView.vue"
+import MembersView from "../views/MembersView.vue"
 
 // when url is /discord, redirect to https://discord.gg/
 if (document.location.pathname === "/discord")
@@ -16,6 +17,11 @@ const router = createRouter({
       path: "/",
       name: "home",
       component: HomeView,
+    },
+    {
+      path: "/members",
+      name: "members",
+      component: MembersView,
     },
   ],
 })

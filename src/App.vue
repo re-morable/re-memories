@@ -50,54 +50,63 @@ import "./index.scss"
     <RouterView />
   </main>
   <footer class="footer">
-    <div class="footer-info">
-      <img src="/src/assets/logo-light.png" alt="Re:Memories" class="py-4" />
-      <div class="link-sosmed">
-        <a
-          href="https://www.youtube.com/channel/UCJZnhqz3mNpWJJ1FGrAy_qA"
-          target="_blank"
-          class="hover:bg-[#ff0000] hover:text-white"
-        >
-          <font-awesome-icon :icon="['fab', 'youtube']" class="fa-fw" />
-        </a>
-        <a
-          href="https://twitter.com/Rememories_id"
-          target="_blank"
-          class="hover:bg-[#1d9bf0] hover:text-white"
-        >
-          <font-awesome-icon :icon="['fab', 'twitter']" class="fa-fw" />
-        </a>
-        <a
-          href="https://www.instagram.com/rememories.id/"
-          target="_blank"
-          class="hover:bg-gradient-to-br from-[#3f6ac9] via-[#e54576] to-[#ffc650] hover:text-white"
-        >
-          <font-awesome-icon :icon="['fab', 'instagram']" class="fa-fw" />
-        </a>
-        <a
-          href="https://www.facebook.com/rememories.id/"
-          target="_blank"
-          class="hover:bg-[#1878f4] hover:text-white"
-        >
-          <font-awesome-icon :icon="['fab', 'facebook']" class="fa-fw" />
-        </a>
-        <a
-          href="https://discord.com/invite/FsvMsA7DFj"
-          target="_blank"
-          class="hover:bg-[#5865F2] hover:text-white"
-        >
-          <font-awesome-icon :icon="['fab', 'discord']" class="fa-fw" />
-        </a>
-        <a
-          href="https://play.google.com/store/apps/details?id=com.warteg.evelyn_family_app"
-          target="_blank"
-          class="hover:bg-slate-800 hover:text-white"
-        >
-          <font-awesome-icon :icon="['fab', 'google-play']" class="fa-fw" />
-        </a>
-      </div>
+    <img src="/src/assets/logo-light.png" alt="Re:Memories" class="pb-4" />
+    <div class="link-service">
+      <router-link to="/about">About Us</router-link> |
+      <router-link to="/terms">Guidelines</router-link> |
+      <router-link to="/privacy">Privacy Policy</router-link> |
+      <a href="/#contact" @click="toContact">Contact</a> |
+      <router-link to="/audition">Audition</router-link>
     </div>
-    <div class="footer-link"></div>
+    <div class="link-sosmed">
+      <a
+        href="https://www.youtube.com/channel/UCJZnhqz3mNpWJJ1FGrAy_qA"
+        target="_blank"
+        class="hover:bg-[#ff0000] hover:text-white"
+      >
+        <font-awesome-icon :icon="['fab', 'youtube']" class="fa-fw" />
+      </a>
+      <a
+        href="https://twitter.com/Rememories_id"
+        target="_blank"
+        class="hover:bg-[#1d9bf0] hover:text-white"
+      >
+        <font-awesome-icon :icon="['fab', 'twitter']" class="fa-fw" />
+      </a>
+      <a
+        href="https://www.instagram.com/rememories.id/"
+        target="_blank"
+        class="hover:bg-gradient-to-br from-[#3f6ac9] via-[#e54576] to-[#ffc650] hover:text-white"
+      >
+        <font-awesome-icon :icon="['fab', 'instagram']" class="fa-fw" />
+      </a>
+      <a
+        href="https://www.facebook.com/rememories.id/"
+        target="_blank"
+        class="hover:bg-[#1878f4] hover:text-white"
+      >
+        <font-awesome-icon :icon="['fab', 'facebook']" class="fa-fw" />
+      </a>
+      <a
+        href="https://discord.com/invite/FsvMsA7DFj"
+        target="_blank"
+        class="hover:bg-[#5865F2] hover:text-white"
+      >
+        <font-awesome-icon :icon="['fab', 'discord']" class="fa-fw" />
+      </a>
+      <a
+        href="https://play.google.com/store/apps/details?id=com.warteg.evelyn_family_app"
+        target="_blank"
+        class="hover:bg-slate-800 hover:text-white"
+      >
+        <font-awesome-icon :icon="['fab', 'google-play']" class="fa-fw" />
+      </a>
+    </div>
+
+    <div class="copyright">
+      2020-{{ new Date().getFullYear() }} &copy; Re:Memories All Rights
+      Reserved.
+    </div>
   </footer>
 </template>
 
@@ -154,42 +163,78 @@ export default {
       this.recolorNavBar()
     })
 
+    window.addEventListener("resize", () => this.recolorNavBar())
+    window.addEventListener("scroll", () => this.recolorNavBar())
+  },
+  mounted() {
     this.$watch(
       () => this.$route.path,
-      () => {
-        if (this.$route.path === "/") {
-          this.recolorNavBar()
-          window.addEventListener("resize", () => this.recolorNavBar())
-          window.addEventListener("scroll", () => this.recolorNavBar())
-        } else {
-          this.navbar_opacity = 1
-          this.link_color = "rgb(20, 20, 20)"
-          this.nav_color = "rgb(20, 20, 20)"
-        }
+      async () => {
+        await new Promise((resolve) => setTimeout(resolve, 50))
+        this.recolorNavBar()
       },
       { immediate: true }
     )
   },
   methods: {
     async recolorNavBar() {
-      await new Promise((resolve) => setTimeout(resolve, 100))
-      const opacity =
-        window.innerWidth > 1024
-          ? 0 +
-            Math.min(1, Math.max(0, window.scrollY / (window.innerHeight - 75)))
-          : 0 +
-            Math.min(1, Math.max(0, (window.scrollY / window.innerHeight) * 2))
+      if (this.$route.path === "/") {
+        await new Promise((resolve) => setTimeout(resolve, 100))
+        const opacity =
+          window.innerWidth > 1024
+            ? 0 +
+              Math.min(
+                1,
+                Math.max(0, window.scrollY / (window.innerHeight - 75))
+              )
+            : 0 +
+              Math.min(
+                1,
+                Math.max(0, (window.scrollY / window.innerHeight) * 2)
+              )
 
-      this.navbar_opacity =
-        this.navbar_open && window.innerWidth <= 640 ? 1 : opacity
+        this.navbar_opacity =
+          this.navbar_open && window.innerWidth <= 640 ? 1 : opacity
 
-      const linkColor = this.navbar_open
-        ? 20
-        : Math.max(20, Math.min(255, 255 - opacity * 255))
-      const navColor = window.innerWidth <= 640 ? 20 : linkColor
+        const linkColor = this.navbar_open
+          ? 20
+          : Math.max(20, Math.min(255, 255 - opacity * 255))
+        const navColor = window.innerWidth <= 640 ? 20 : linkColor
 
-      this.link_color = `rgb(${linkColor}, ${linkColor}, ${linkColor})`
-      this.nav_color = `rgb(${navColor}, ${navColor}, ${navColor})`
+        this.link_color = `rgb(${linkColor}, ${linkColor}, ${linkColor})`
+        this.nav_color = `rgb(${navColor}, ${navColor}, ${navColor})`
+      } else {
+        this.navbar_opacity = 1
+        this.link_color = "rgb(20, 20, 20)"
+        this.nav_color = "rgb(20, 20, 20)"
+      }
+    },
+    scrollHash(hash) {
+      if (!this.$route.hash) return
+      let element = document.getElementById(hash.replace("#", ""))
+
+      if (element) {
+        const headerOffset = 70
+        const elementPosition = element.getBoundingClientRect().top
+        const offsetPosition =
+          elementPosition + window.pageYOffset - headerOffset
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth",
+        })
+      }
+    },
+    async toContact(e) {
+      e.preventDefault()
+      await new Promise((resolve) => setTimeout(resolve, 50))
+      if (this.$route.path !== "/#contact")
+        this.$router.push({
+          path: "/",
+          hash: "#contact",
+        })
+
+      this.scrollHash("contact")
     },
   },
 }
@@ -244,15 +289,7 @@ export default {
 }
 
 .footer {
-  @apply py-4 bg-slate-700 flex flex-col md:flex-row;
-
-  &-link {
-    @apply flex-1 flex flex-col items-center justify-center;
-  }
-
-  &-info {
-    @apply flex-1 flex flex-col items-start justify-center px-4;
-  }
+  @apply py-6 bg-slate-700 flex flex-col items-center justify-center;
 }
 
 .link-sosmed {
@@ -265,5 +302,17 @@ export default {
       @apply mr-2;
     }
   }
+}
+
+.link-service {
+  @apply text-slate-400 text-sm pb-4;
+
+  a {
+    @apply text-slate-100 hover:text-slate-400 duration-200 ease-in-out;
+  }
+}
+
+.copyright {
+  @apply text-xs mt-4 text-center text-slate-300;
 }
 </style>
