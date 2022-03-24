@@ -1,4 +1,5 @@
 # re-memories
+[![Deploy to Google](https://github.com/yarndinasti/re-memories/actions/workflows/main.yml/badge.svg)](https://github.com/yarndinasti/re-memories/actions/workflows/main.yml)
 
 Ini adalah website cloningan dari [website aslinya](https://rememories.id/) yang lebih bagus dari aslinya dengan tujuan isengan menambah pengalaman.
 

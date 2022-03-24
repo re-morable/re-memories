@@ -151,6 +151,10 @@ export default {
         this.recolorNavBar()
 
         if (!this.navbar_open) document.activeElement.blur()
+      } else if (e.target.closest(".navbar-item")) {
+        document.activeElement.blur()
+        this.navbar_open = false
+        this.recolorNavBar()
       } else {
         this.navbar_open = false
         this.recolorNavBar()
@@ -234,6 +238,7 @@ export default {
           hash: "#contact",
         })
 
+      await new Promise((resolve) => setTimeout(resolve, 50))
       this.scrollHash("contact")
     },
   },
