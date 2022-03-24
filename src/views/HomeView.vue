@@ -14,7 +14,7 @@ import HomeMembers from "../components/HomeMembers.vue"
     </div>
   </section>
   <section class="my-2 bg-parallax py-16">
-    <h1 class="pb-8 center">About</h1>
+    <h1 class="main-title pb-8 center">About</h1>
     <p>
       Re:Memories adalah agensi independen yang melahirkan Virtual Youtuber
       sebagai teman atau bahkan keluarga. Kami berfokus memberikan sensasi
@@ -28,19 +28,19 @@ import HomeMembers from "../components/HomeMembers.vue"
     </p>
   </section>
   <section class="my-2 container w-[95vw] mx-auto text-slate-800 py-5">
-    <h1 class="pb-8 text-slate-800 pl-5">Partner</h1>
+    <h1 class="main-title pb-8 text-slate-800 pl-5">Partner</h1>
     <p></p>
   </section>
   <section class="my-2 bg-parallax py-6">
     <div class="container w-[95vw] mx-auto">
-      <h1 class="pl-5 pb-8">News</h1>
+      <h1 class="main-title pl-5 pb-8">News</h1>
     </div>
   </section>
   <section
     class="my-2 container w-[95vw] mx-auto text-slate-800 py-6"
     id="contact"
   >
-    <h1 class="text-slate-800 center pb-8">Contact</h1>
+    <h1 class="main-title text-slate-800 center pb-8">Contact</h1>
     <p>
       Jika ada pertanyaan, kolaborasi, atau projek terkait dengan Re:Memories,
       silahkan hubungi kami melalui form di samping atau dapat langsung
