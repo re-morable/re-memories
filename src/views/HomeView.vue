@@ -61,6 +61,9 @@ import HomeMembers from "../components/HomeMembers.vue"
           placeholder=" "
         />
         <label for="name" class="contact-form-label required">Name</label>
+        <small class="contact-form-error">
+          Please enter your name (min. 3 characters)
+        </small>
       </div>
       <div class="contact-form-group">
         <input
@@ -83,6 +86,9 @@ import HomeMembers from "../components/HomeMembers.vue"
           placeholder=" "
         />
         <label for="email" class="contact-form-label required">Email</label>
+        <small class="contact-form-error">
+          Please enter a valid email address
+        </small>
       </div>
       <div class="contact-form-group__area">
         <textarea
@@ -92,6 +98,9 @@ import HomeMembers from "../components/HomeMembers.vue"
           placeholder=" "
         ></textarea>
         <label for="message" class="contact-form-label required">Message</label>
+        <small class="contact-form-error">
+          Please enter your message (min. 10 characters)
+        </small>
       </div>
       <div class="contact-form-group">
         <button type="submit" class="contact-form-button">Send</button>
@@ -152,7 +161,7 @@ export default {
           e.target.name === "message" && e.target.value.length < 10
 
         if (requiredTarget || nameTarget || emailTarget || messageTarget)
-          e.target.classList.add("is-invalid")
+          e.target.parentElement.classList.add("is-invalid")
       })
 
       // when input add text
@@ -166,8 +175,8 @@ export default {
           e.target.name === "message" && e.target.value.length < 10
 
         if (requiredTarget || nameTarget || emailTarget || messageTarget)
-          e.target.classList.add("is-invalid")
-        else e.target.classList.remove("is-invalid")
+          e.target.parentElement.classList.add("is-invalid")
+        else e.target.parentElement.classList.remove("is-invalid")
 
         contactButton.disabled = !![...contactInputs].find((i) => {
           const required = i.name !== "company" && i.value === ""
@@ -205,10 +214,46 @@ p {
   @apply flex flex-col items-center justify-center container mx-auto rounded-lg shadow-md px-4 py-2;
 
   &-group {
-    @apply relative w-full h-12 my-2;
+    @apply relative w-full /*h-16*/ h-12 my-2 transition-all duration-200 ease-in-out;
 
     &__area {
-      @apply relative w-full h-48 my-2;
+      @apply relative w-full /*h-52*/ h-48 my-2;
+
+      .contact-form-input {
+        @apply h-48;
+      }
+
+      .contact-form-error {
+        @apply mt-48;
+      }
+    }
+
+    &.is-invalid,
+    &__area.is-invalid {
+      @apply mb-5;
+
+      .contact-form-error {
+        @apply opacity-100;
+      }
+
+      .contact-form-input {
+        @apply border-red-500;
+
+        & + .contact-form-label {
+          @apply text-red-300;
+        }
+
+        &:focus {
+          & + .contact-form-label {
+            @apply text-red-600;
+          }
+        }
+      }
+
+      .contact-form-input:not(:placeholder-shown).contact-form-input:not(:focus)
+        + .contact-form-label {
+        @apply text-red-400;
+      }
     }
   }
 
@@ -220,36 +265,23 @@ p {
     }
   }
 
+  &-error {
+    @apply mt-12 ml-2 block opacity-0 text-red-500 transition-all duration-200 ease-in-out;
+  }
+
   &-input {
-    @apply absolute top-0 left-0 w-full h-full border-[1px] resize-none rounded-md outline-none p-4 bg-transparent z-[1];
+    @apply absolute top-0 left-0 w-full h-12 border-[1px] resize-none rounded-md outline-none p-4 bg-transparent z-[1];
 
     &:focus {
-      &:not(.is-invalid) {
-        @apply border-[1.5px] border-blue-500;
-      }
-
-      &.is-invalid + .contact-form-label {
-        @apply text-red-600;
-      }
+      @apply border-[1.5px] border-blue-500;
 
       & + .contact-form-label {
         @apply -top-[.825rem] left-[.8rem] text-blue-500 text-xs z-[4] font-semibold;
       }
     }
-
-    &.is-invalid {
-      @apply border-[1.5px] border-red-500;
-
-      & + .contact-form-label {
-        @apply text-red-300;
-      }
-    }
   }
 
   .contact-form-input:not(:placeholder-shown).contact-form-input:not(:focus) {
-    &.is-invalid + .contact-form-label {
-      @apply text-red-400;
-    }
     & + .contact-form-label {
       @apply -top-[.825rem] left-[.8rem] text-gray-500 text-xs z-[4] font-semibold;
     }
