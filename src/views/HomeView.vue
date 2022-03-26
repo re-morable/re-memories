@@ -10,8 +10,8 @@ import HomeMembers from "../components/HomeMembers.vue"
   <section class="my-2">
     <div class="container w-[95vw] mx-auto pt-5">
       <h1 class="main-title text-slate-800 pl-5">Members</h1>
-      <HomeMembers />
     </div>
+    <HomeMembers />
   </section>
   <section class="my-2 bg-parallax py-16">
     <h1 class="main-title pb-8 center">About</h1>
@@ -134,20 +134,6 @@ export default {
           this.header_scroll = "0%"
         }
       }
-
-      const bgParallax = document.querySelectorAll(".bg-parallax")
-
-      if (bgParallax) {
-        bgParallax.forEach((bg) => {
-          const paralaxTop = window.scrollY - bg.getBoundingClientRect().top
-          const parallaxScroll = Math.min(
-            0,
-            Math.max(-332, 0 - paralaxTop / 15)
-          )
-
-          bg.style.backgroundPosition = `50% ${parallaxScroll}px`
-        })
-      }
     })
 
     const contactInputs = document.querySelectorAll(".contact-form-input")
@@ -212,10 +198,6 @@ export default {
 p {
   @apply w-[95vw] sm:w-[85vw] lg:w-[75vw] xl:w-[70vw] text-center font-semibold mb-[1.5vmax] mx-auto;
   font-size: clamp(0.8rem, 1.4vmax, 1.4vmax);
-}
-
-.bg-parallax {
-  @apply bg-[url("/src/assets/background.jpg")] bg-cover bg-no-repeat bg-top bg-fixed text-white;
 }
 
 // make form like android

@@ -168,7 +168,23 @@ export default {
     })
 
     window.addEventListener("resize", () => this.recolorNavBar())
-    window.addEventListener("scroll", () => this.recolorNavBar())
+    window.addEventListener("scroll", () => {
+      this.recolorNavBar()
+
+      const bgParallax = document.querySelectorAll(".bg-parallax")
+
+      if (bgParallax) {
+        bgParallax.forEach((bg) => {
+          const paralaxTop = window.scrollY - bg.getBoundingClientRect().top
+          const parallaxScroll = Math.min(
+            0,
+            Math.max(-332, 0 - paralaxTop / 15)
+          )
+
+          bg.style.backgroundPosition = `50% ${parallaxScroll}px`
+        })
+      }
+    })
   },
   mounted() {
     this.$watch(
@@ -312,6 +328,10 @@ export default {
       @apply mx-auto;
     }
   }
+}
+
+.bg-parallax {
+  @apply bg-[url("/src/assets/background.jpg")] bg-cover bg-no-repeat bg-top bg-fixed text-white;
 }
 
 .footer {

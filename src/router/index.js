@@ -9,7 +9,20 @@ if (document.location.pathname === "/discord")
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-
+  scrollBehavior(to, from, savedPosition) {
+    if (to.hash) {
+      return {
+        selector: to.hash,
+        offset: {
+          y: 25,
+        },
+      }
+    } else {
+      return {
+        y: 0,
+      }
+    }
+  },
   routes: [
     {
       path: "/",
@@ -27,20 +40,6 @@ const router = createRouter({
       component: AboutView,
     },
   ],
-  scrollBehavior(to, from, savedPosition) {
-    if (to.hash) {
-      return {
-        selector: to.hash,
-        offset: {
-          y: 25,
-        },
-      }
-    } else {
-      return {
-        y: 0,
-      }
-    }
-  },
 })
 
 export default router

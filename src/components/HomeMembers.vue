@@ -127,7 +127,7 @@ export default {
 
 <style lang="scss" scoped>
 .member {
-  @apply px-12 py-4 my-8;
+  @apply px-12 py-4 my-4;
 
   &-list {
     @apply mx-3 w-[250px] block;
@@ -151,7 +151,7 @@ export default {
   }
 
   &-arrow-left {
-    @apply left-0;
+    @apply left-6;
 
     .member-arrow__icon {
       @apply translate-x-0.5;
@@ -159,7 +159,7 @@ export default {
   }
 
   &-arrow-right {
-    @apply right-0;
+    @apply right-6;
   }
 }
 
