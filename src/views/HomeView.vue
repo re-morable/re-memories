@@ -206,10 +206,11 @@ export default {
     this.$watch(
       () => this.$route.path,
       () => {
-        contactInputs.forEach((input) => {
-          input.classList.remove("is-invalid")
-        })
-      }
+        contactInputs.forEach((input) =>
+          input.parentElement.classList.remove("is-invalid")
+        )
+      },
+      { immediate: true }
     )
 
     contactInputs.forEach((input) => {
