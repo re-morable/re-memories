@@ -179,8 +179,8 @@ export default {
           const paralaxHeight = bg.clientHeight
           console.log(paralaxHeight)
           const parallaxScroll = Math.min(
-            50,
-            Math.max(-332, 50 - paralaxTop / (paralaxHeight / 20))
+            65,
+            Math.max(-332, 65 - paralaxTop / (paralaxHeight / 20))
           )
 
           bg.style.backgroundPosition = `50% ${parallaxScroll}px`

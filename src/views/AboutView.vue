@@ -132,7 +132,7 @@ export default {
   }
 
   &-image {
-    @apply w-full aspect-square object-cover rounded-lg;
+    @apply w-full aspect-square object-cover rounded-lg mb-1;
   }
 
   &-name {
