@@ -20,10 +20,16 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: install libraries
-        run: npm install
+        run: npm ci
+      - name: Test Website
+        run: npm run test:unit
       - name: Build Website
         run: npm run build
       - name: install firebase
         run: npm i firebase-tools -g
       - name: deploy
-        run: firebase deploy --token ${{ secrets.FIREBASE_TOKEN }}
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only hosting
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
