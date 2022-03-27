@@ -117,13 +117,13 @@ export default {
 }
 
 .teams {
-  @apply w-fit mx-auto grid gap-4 justify-items-center;
+  @apply w-fit mx-auto px-4 md:px-0 grid gap-4 justify-items-center;
   grid-template-columns: repeat(3, 1fr);
 }
 
 .team {
   &-card {
-    @apply w-48 backdrop-blur-md bg-white/50 shadow-sm shadow-white/30 rounded-lg p-2 transition-colors duration-200 ease-in-out;
+    @apply max-w-[13rem] backdrop-blur-md bg-white/50 shadow-sm shadow-white/30 rounded-lg p-2 transition-colors duration-200 ease-in-out;
 
     // set background color for firefox
     @-moz-document url-prefix() {
@@ -132,15 +132,15 @@ export default {
   }
 
   &-image {
-    @apply w-full h-48 object-cover rounded-lg;
+    @apply w-full aspect-square object-cover rounded-lg;
   }
 
   &-name {
-    @apply text-xl font-semibold text-center text-slate-800;
+    @apply text-lg sm:text-xl font-semibold text-center text-slate-800;
   }
 
   &-role {
-    @apply text-xs font-semibold text-center text-slate-600;
+    @apply text-2xs sm:text-xs font-semibold text-center text-slate-600;
   }
 }
 
