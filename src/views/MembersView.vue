@@ -49,6 +49,9 @@ export default {
       tab: 0,
     }
   },
+  mounted() {
+    document.title = "Members - Re:Memories"
+  },
   computed: {
     members() {
       const members = [

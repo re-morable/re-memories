@@ -316,7 +316,7 @@ export default {
 
 p {
   @apply w-[95vw] sm:w-[85vw] lg:w-[75vw] xl:w-[70vw] text-center font-semibold mb-[1.5vmax] mx-auto;
-  font-size: clamp(0.8rem, 1.4vmax, 1.4vmax);
+  font-size: clamp(1rem, 1.4vmax, 1.4vmax);
 }
 
 // make form like android

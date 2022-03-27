@@ -178,8 +178,9 @@ export default {
           const paralaxTop = window.scrollY - bg.getBoundingClientRect().top
           const parallaxScroll = Math.min(
             0,
-            Math.max(-332, 0 - paralaxTop / 15)
+            Math.max(-332, 0 - paralaxTop / 10)
           )
+          console.log(parallaxScroll)
 
           bg.style.backgroundPosition = `50% ${parallaxScroll}px`
         })
@@ -307,7 +308,7 @@ export default {
   }
 
   &-item {
-    @apply inline-block px-2 py-1 sm:mx-0.5 my-0.5 sm:my-0 font-medium rounded-md hover:bg-gray-200 hover:bg-opacity-50 transition-colors duration-200 ease-in-out;
+    @apply inline-block px-2 py-1 sm:mx-0.5 my-0.5 sm:my-0 rounded-md hover:bg-gray-200 hover:bg-opacity-50 transition-colors duration-200 ease-in-out;
 
     &.router-link-active {
       @apply bg-gray-300 bg-opacity-50;

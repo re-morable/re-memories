@@ -9,7 +9,7 @@
     </p>
   </section>
   <div class="container w-[95vw] mx-auto py-4 text-slate-800">
-    <h1 class="main-title pb-4 center">Sejarah</h1>
+    <h1 class="main-title pb-4 center">History</h1>
 
     <!-- Debut -->
     <div class="card-history">
@@ -63,13 +63,85 @@
       </p>
     </div>
   </div>
+  <section class="mt-2 bg-parallax py-8">
+    <h1 class="main-title center pb-8">Our Teams</h1>
+    <div class="teams">
+      <div class="team-card">
+        <img src="/src/assets/teams/wendy.jpg" class="team-image" />
+        <h4 class="team-name">Wendy Antonius</h4>
+        <p class="team-role">
+          Founder, Chief Executive<br />Chief Financial, R&D Director
+        </p>
+      </div>
+      <div class="team-card">
+        <img src="/src/assets/teams/reinly.jpg" class="team-image" />
+        <h4 class="team-name">Reinly</h4>
+        <p class="team-role">Founder, Creative Director</p>
+      </div>
+      <div class="team-card">
+        <img src="/src/assets/teams/panana.jpg" class="team-image" />
+        <h4 class="team-name">Panana</h4>
+        <p class="team-role">Founder, Art Director</p>
+      </div>
+      <div class="team-card">
+        <img src="/src/assets/teams/sos.jpg" class="team-image" />
+        <h4 class="team-name">SOS</h4>
+        <p class="team-role">Head of Talent Manager</p>
+      </div>
+      <div class="team-card">
+        <img src="/src/assets/teams/reynald.jpg" class="team-image" />
+        <h4 class="team-name">Reynald Blanc</h4>
+        <p class="team-role">Music & Vocal Director</p>
+      </div>
+      <div class="team-card">
+        <img src="/src/assets/teams/yayo.jpg" class="team-image" />
+        <h4 class="team-name">Yayo</h4>
+        <p class="team-role">Video Director</p>
+      </div>
+    </div>
+  </section>
 </template>
-<script></script>
+
+<script>
+export default {
+  mounted() {
+    document.title = "About - Re:Memories"
+  },
+}
+</script>
 
 <style lang="scss" scoped>
 .paragraf {
   @apply w-[95vw] sm:w-[85vw] lg:w-[75vw] xl:w-[70vw] text-center font-semibold mx-auto;
-  font-size: clamp(0.8rem, 1.4vmax, 1.4vmax);
+  font-size: clamp(1rem, 1.4vmax, 1.4vmax);
+}
+
+.teams {
+  @apply w-fit mx-auto grid gap-4 justify-items-center;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.team {
+  &-card {
+    @apply w-48 backdrop-blur-md bg-white/50 shadow-sm shadow-white/30 rounded-lg p-2 transition-colors duration-200 ease-in-out;
+
+    // set background color for firefox
+    @-moz-document url-prefix() {
+      @apply bg-white/75;
+    }
+  }
+
+  &-image {
+    @apply w-full h-48 object-cover rounded-lg;
+  }
+
+  &-name {
+    @apply text-xl font-semibold text-center text-slate-800;
+  }
+
+  &-role {
+    @apply text-xs font-semibold text-center text-slate-600;
+  }
 }
 
 .card-history {
