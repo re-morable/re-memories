@@ -89,7 +89,7 @@
         <p class="team-role">Head of Talent Manager</p>
       </div>
       <div class="team-card">
-        <img src="/src/assets/teams/reynald.jpg" class="team-image" />
+        <img src="/src/assets/teams/reynard.jpg" class="team-image" />
         <h4 class="team-name">Reynald Blanc</h4>
         <p class="team-role">Music & Vocal Director</p>
       </div>
