@@ -168,32 +168,64 @@ export default {
       this.recolorNavBar()
     })
 
-    window.addEventListener("resize", () => this.recolorNavBar())
-    window.addEventListener("scroll", () => this.recolorNavBar())
+    window.addEventListener("resize", async () => {
+      await new Promise((resolve) => setTimeout(resolve, 60))
+      this.countTopParallax()
+      this.recolorNavBar()
+      this.scrollParallax()
+    })
+    window.addEventListener("scroll", () => {
+      this.recolorNavBar()
+      this.scrollParallax()
+    })
   },
   mounted() {
     this.$watch(
       () => this.$route.path,
       async () => {
         await new Promise((resolve) => setTimeout(resolve, 60))
-        this.bg_posision = []
-        const viewportHeight = window.innerHeight
-        const bgParallax = document.querySelectorAll(".bg-parallax")
-
-        bgParallax.forEach((bg) => {
-          const lengthToParallax =
-            window.scrollY + bg.getBoundingClientRect().top
-          this.bg_posision.push(
-            lengthToParallax < viewportHeight / 2 ? lengthToParallax : 0
-          )
-        })
-
+        this.countTopParallax()
         this.recolorNavBar()
+        this.scrollParallax()
       },
       { immediate: true }
     )
   },
   methods: {
+    countTopParallax() {
+      this.bg_posision = []
+      const viewportHeight = window.innerHeight
+      const bgParallax = document.querySelectorAll(".bg-parallax")
+
+      bgParallax.forEach((bg) => {
+        const lengthToParallax = window.scrollY + bg.getBoundingClientRect().top
+        this.bg_posision.push(
+          lengthToParallax < viewportHeight ? lengthToParallax : 0
+        )
+      })
+    },
+    scrollParallax() {
+      const bgParallax = document.querySelectorAll(".bg-parallax")
+      // get viewport height
+
+      if (bgParallax) {
+        bgParallax.forEach((bg, index) => {
+          const paralaxTop = window.scrollY - bg.getBoundingClientRect().top
+          const paralaxHeight = bg.clientHeight
+          let parallaxScroll = Math.min(
+            65,
+            Math.max(
+              -332,
+              65 -
+                paralaxTop / (paralaxHeight / 20) -
+                this.bg_posision[index] * 4
+            )
+          )
+
+          bg.style.backgroundPosition = `50% ${parallaxScroll}px`
+        })
+      }
+    },
     recolorNavBar() {
       if (this.$route.path === "/") {
         const opacity =
@@ -229,27 +261,6 @@ export default {
         this.navbar_opacity = 1
         this.link_color = "rgb(20, 20, 20)"
         this.nav_color = "rgb(20, 20, 20)"
-      }
-
-      const bgParallax = document.querySelectorAll(".bg-parallax")
-      // get viewport height
-
-      if (bgParallax) {
-        bgParallax.forEach((bg, index) => {
-          const paralaxTop = window.scrollY - bg.getBoundingClientRect().top
-          const paralaxHeight = bg.clientHeight
-          let parallaxScroll = Math.min(
-            65,
-            Math.max(
-              -332,
-              65 -
-                paralaxTop / (paralaxHeight / 20) -
-                this.bg_posision[index] * 4
-            )
-          )
-
-          bg.style.backgroundPosition = `50% ${parallaxScroll}px`
-        })
       }
     },
     scrollHash(hash, offset = 0) {
