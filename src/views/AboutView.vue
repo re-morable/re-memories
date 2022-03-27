@@ -40,9 +40,9 @@
     <!-- Update live 2d -->
     <div class="card-history">
       <img
-        src="/src/assets/evelyn-2019.png"
+        src="/src/assets/gen-2.png"
         alt=""
-        class="card-history__images"
+        class="card-history__images rounded-lg !object-cover"
       />
       <p class="card-history__text">
         <span class="card-history__date">September 2020</span>
