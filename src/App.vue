@@ -194,9 +194,8 @@ export default {
     )
   },
   methods: {
-    async recolorNavBar() {
+    recolorNavBar() {
       if (this.$route.path === "/") {
-        await new Promise((resolve) => setTimeout(resolve, 60))
         const opacity =
           window.innerWidth > 1024
             ? 0 +
