@@ -200,7 +200,7 @@ export default {
       bgParallax.forEach((bg) => {
         const lengthToParallax = window.scrollY + bg.getBoundingClientRect().top
         this.bg_posision.push(
-          lengthToParallax < viewportHeight ? lengthToParallax : 0
+          lengthToParallax < viewportHeight / 2 ? lengthToParallax : 0
         )
       })
     },
@@ -212,6 +212,7 @@ export default {
         bgParallax.forEach((bg, index) => {
           const paralaxTop = window.scrollY - bg.getBoundingClientRect().top
           const paralaxHeight = bg.clientHeight
+          console.log(this.bg_posision[index])
           let parallaxScroll = Math.min(
             65,
             Math.max(
