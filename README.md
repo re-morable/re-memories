@@ -3,9 +3,7 @@
 
 Ini adalah website cloningan dari [website aslinya](https://rememories.id/) yang lebih bagus dari aslinya dengan tujuan isengan menambah pengalaman.
 
-## To-do List
-
-- [] Add chap
+> Kami akan lanjutkan stelah menjadi developer di Re:Memories
 
 ## Recommended IDE Setup
 
