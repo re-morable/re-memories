@@ -2,6 +2,7 @@
   <swiper
     :slidesPerView="'auto'"
     :spaceBetween="12"
+    :slidesOffsetBefore="20"
     class="member"
     @after-init="slideChange"
     @slideChange="slideChange"
@@ -127,7 +128,7 @@ export default {
 
 <style lang="scss" scoped>
 .member {
-  @apply px-12 py-4 my-4;
+  @apply px-12 py-4 my-4 container;
 
   &-list {
     @apply mx-3 w-[250px] block;

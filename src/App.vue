@@ -1,6 +1,7 @@
 <script setup>
 import { RouterLink, RouterView } from "vue-router"
 import "./index.scss"
+import Re_memories from "./components/logos/re_memories.vue"
 </script>
 
 <template>
@@ -13,7 +14,7 @@ import "./index.scss"
   >
     <div class="navbar">
       <RouterLink to="/" class="navbar-logo">
-        <img
+        <!-- <img
           src="/src/assets/logo-light.png"
           alt="logo"
           class="navbar-logo__light"
@@ -21,6 +22,11 @@ import "./index.scss"
         <img
           src="/src/assets/logo-dark.png"
           alt="logo"
+          class="navbar-logo__dark"
+          :style="{ opacity: navbar_opacity }"
+        /> -->
+        <!-- <Re_memories class="navbar-logo__light" /> -->
+        <Re_memories
           class="navbar-logo__dark"
           :style="{ opacity: navbar_opacity }"
         />
@@ -34,7 +40,13 @@ import "./index.scss"
         >
           <font-awesome-icon icon="bars" class="navbar-link__icon" />
         </a>
-        <div class="navbar-items" :style="{ color: nav_color }">
+        <div
+          class="navbar-items"
+          :style="{
+            color: nav_color,
+            backgroundColor: bg_nav_color,
+          }"
+        >
           <RouterLink to="/" class="navbar-item"> Home </RouterLink>
           <RouterLink to="/members" class="navbar-item"> Members </RouterLink>
           <RouterLink to="/about" class="navbar-item"> About </RouterLink>
@@ -50,7 +62,9 @@ import "./index.scss"
     <RouterView />
   </main>
   <footer class="footer">
-    <img src="/src/assets/logo-light.png" alt="Re:Memories" class="pb-4" />
+    <Re_memories
+      class="pb-4 text-[3em] text-white opacity-75 hover:opacity-100 transition duration-300 ease-in-out"
+    />
     <div class="link-service">
       <router-link to="/about">About Us</router-link> |
       <router-link to="/terms">Guidelines</router-link> |
@@ -140,6 +154,7 @@ export default {
       navbar_opacity: 1,
       link_color: "rgb(20, 20, 20)",
       nav_color: "rgb(20, 20, 20)",
+      bg_nav_color: "rgb(255, 255, 255)",
       bg_posision: [],
     }
   },
@@ -258,10 +273,19 @@ export default {
 
         this.link_color = `rgb(${linkColor}, ${linkColor}, ${linkColor})`
         this.nav_color = `rgb(${navColor}, ${navColor}, ${navColor})`
+
+        const bg_nav_trans = Math.round(linkColor / 51) / 10
+        this.bg_nav_color =
+          window.innerWidth < 640
+            ? "rgb(255, 255, 255)"
+            : `rgba(0, 0, 0, ${bg_nav_trans})`
+        // this.bg_nav_trans = `${Math.round(linkColor / 51) / 10}`
       } else {
         this.navbar_opacity = 1
         this.link_color = "rgb(20, 20, 20)"
         this.nav_color = "rgb(20, 20, 20)"
+        this.bg_nav_color =
+          window.innerWidth < 640 ? "rgb(255, 255, 255)" : `rgba(0, 0, 0, 0)`
       }
     },
     scrollHash(hash, offset = 0) {
@@ -309,11 +333,15 @@ export default {
 
     &__light,
     &__dark {
-      @apply absolute top-1/2 -translate-y-1/2;
+      @apply absolute top-1/2 -translate-y-1/2 text-3xl;
+    }
+
+    &__light {
+      @apply text-white;
     }
 
     &__dark {
-      @apply transition duration-200 ease-in-out;
+      @apply transition duration-200 ease-in-out text-slate-700;
     }
   }
 
@@ -328,10 +356,10 @@ export default {
   }
 
   &-items {
-    @apply flex flex-col absolute right-0 top-14 w-screen p-2 bg-white scale-y-0 origin-top transition duration-200 ease-in-out;
+    @apply flex flex-col absolute right-0 top-14 w-screen p-2 bg-white scale-y-0 origin-top transition duration-200 ease-in-out text-lg;
 
     @media (min-width: 640px) {
-      @apply flex-row static w-auto items-center justify-end bg-transparent p-0 scale-y-100;
+      @apply flex-row static w-auto items-center justify-end bg-transparent p-0 scale-y-100 rounded-md px-2 py-1;
     }
   }
 
